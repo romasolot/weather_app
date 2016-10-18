@@ -1,0 +1,185 @@
+{% extends "includes/base.html" %}
+{#<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>#}
+{% load wsw_extras %}
+{% load nvd3_tags %}
+{% block content %}
+    {% include_chart_jscss %}
+    {% load_chart charttype_1 chartdata_1 container_1 extra_1 %}
+    {% load_chart charttype_2 chartdata_2 container_2 extra_2 %}
+<div class="dashhead m-t-md">
+  <div class="dashhead-titles">
+    <h5 class="dashhead-title">Weather Dashboard</h5>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar">
+    <div class="btn-toolbar-item input-with-icon">
+      <input type="text" value="01/01/15 - 01/08/15" class="form-control" data-provide="datepicker">
+      <span class="icon icon-calendar"></span>
+    </div>
+  </div>
+</div>
+
+<div class="hr-divider m-y-md">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="active" role="presentation">
+      <a href="#aiwrf" role="tab" data-toggle="tab" aria-controls="aiwrf">
+        <button type="button" class="btn btn-danger-outline">AI-WRF</button>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#gfs" role="tab" data-toggle="tab" aria-controls="gfs">
+        <button type="button" class="btn btn-primary-outline">GFS</button>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#rap" role="tab" data-toggle="tab" aria-controls="rap">
+        <button type="button" class="btn btn-success-outline">RAP</button>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#hiresw" role="tab" data-toggle="tab" aria-controls="hiresw">
+        <button type="button" class="btn btn-info-outline">HIRESW</button>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#name" role="tab" data-toggle="tab" aria-controls="name">
+        <button type="button" class="btn btn-warning-outline">NAME</button>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="aiwrf">
+    <div class="ex-line-graphs">
+        <div class="container">
+            <div class="row">
+{#                <div class="col-xs-6">#}
+                    {% include_container container_1 800 1200 %}
+{#                </div>#}
+{#                <div class="col-xs-6">#}
+                    {% include_container container_2 800 1200 %}
+{#                </div>#}
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="gfs">
+    <div class="ex-line-graphs">
+       <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="line"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels="['','Aug 29','','','Sept 5','','','Sept 12','','','Sept 19','']"
+        data-value="[{fillColor: 'rgba(28,168,221,.03)', data: [2500, 3300, 2512, 2775, 2498, 3512, 2925, 4275, 3507, 3825, 3445, 3985]}]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="rap">
+    <div class="ex-line-graphs">
+      <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="bar"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels="['August','September','October','November','December','January','February']"
+        data-value="[{ label: 'First dataset', data: [65, 59, 80, 81, 56, 55, 40] }, { label: 'Second dataset', data: [28, 48, 40, 19, 86, 27, 90] }]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="hiresw">
+    <div class="row ex-graphs text-center">
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 230, color: '#1ca8dd', label: 'Returning' }, { value: 130, color: '#1bc98e', label: 'New' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Temp</strong>
+        <h3>New vs Returning</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 330, color: '#1ca8dd', label: 'Recurring' }, { value: 30, color: '#1bc98e', label: 'New' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Wind Speed</strong>
+        <h3>New vs Recurring</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 100, color: '#42a5f5', label: 'Referrals' }, { value: 260, color: '#1bc98e', label: 'Direct' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Avg Temp Speed</strong>
+        <h3>Direct vs Referrals</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr-divider m-t-lg m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">Tabular Area</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 m-b">
+      <div class="table-responsive">
+          <table class="table table-hover table-curved">
+              <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Mtop T</th>
+                        <th>Base T</th>
+                        <th>Wind</th>
+                        <th>P</th>
+                        <th>Pa</th>
+                    </tr>
+              </thead>
+              <tbody>
+              {% for el in stations_data %}
+                    <tr>
+                        <td>{{ el.date_property }}</td>
+                        <td>{{ el.temp_mtop|floatformat:"0" }}</td>
+                        <td>{{ el.temp_base|floatformat:"0" }}</td>
+                        <td>{{ el.windspd|floatformat:"0" }} G{{ el.windspd_max|floatformat:"0" }} {{ el.wind_dir|floatformat:"0" }}</td>
+                        <td>{{ el.psum|floatformat:"2" }}</td>
+                        <td>{{ el.pa_|floatformat:"2" }}</td>
+                    </tr>
+              {% endfor %}
+              </tbody>
+              <tfoot>
+                  <tr>
+                        <td colspan="6" class="text-center">
+                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+                            <a href="#" class="btn btn-primary-outline">Top</a>
+                        </td>
+                  </tr>
+              </tfoot>
+          </table>
+      </div>
+    </div>
+</div>
+{% endblock %}

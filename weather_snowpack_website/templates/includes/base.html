@@ -1,0 +1,110 @@
+{% load i18n %}
+{% load l10n %}
+{% load nvd3_tags %}
+{% load wsw_extras %}
+{% load %}
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+{#    <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %} />#}
+    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+    <title>
+
+        Fluid &middot;
+
+    </title>
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+    {% load pipeline %}
+    {% stylesheet 'css' %}
+    <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+      }
+    </style>
+    {% load nvd3_tags %}
+    {% include_chart_jscss %}
+{#    {% load_chart charttype chartdata container extra %}#}
+{#    {% load_chart charttype_1 chartdata_1 container_1 extra_1 %}#}
+{#    {% load_chart charttype_2 chartdata_2 container_2 extra_2 %}#}
+  </head>
+
+<body class="with-top-navbar">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid container-fluid-spacious">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand navbar-brand-emphasized" href="/">
+          <span class="icon icon-leaf navbar-brand-icon"></span>
+          Dashboard
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="/dashboard/">Crystal</a>
+          </li>
+          <li >
+            <a href="/ex_ch1/">
+              Wind Speed
+            </a>
+          </li>
+            <li >
+            <a href="/ex_ch2/">
+              Temp
+            </a>
+          </li>
+        </ul>
+
+      {% block header %}
+
+        <ul class="nav navbar-nav navbar-right">
+
+              {% if user.is_authenticated %}
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{% trans "Welcome" %}, {{ user.username }}</span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                      <a href="{% url 'logout' %}?next=/login">{% trans "Log out" %}</a>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+                  <li>
+                    <a href="{% url 'login' %}">{% trans "Log in" %}</a>
+                  </li>
+              {% endif %}
+        </ul>
+      {% endblock %}
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid container-fluid-spacious">
+      {% block content %}{% endblock %}
+</div>
+    {% load pipeline %}
+    {% javascript 'frontend' %}
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+  </body>
+</html>

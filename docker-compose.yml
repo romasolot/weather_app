@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    container_name: db
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: weather
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./db-dump:/docker-entrypoint-initdb.d
+    ports:
+      - "3305:3306"
+  web:
+      container_name: web
+      image: app
+      env_file: .env
+      build: .
+      command: sh runserver.sh
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      links:
+        - db
+      depends_on:
+        - db

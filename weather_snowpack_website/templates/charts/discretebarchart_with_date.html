@@ -1,0 +1,9 @@
+{% extends "includes/base.html" %}
+{% block content %}
+    {% load nvd3_tags %}
+    {% include_chart_jscss %}
+{#    {% load_chart weather_line_with_focus_chart|dict_key_value:"charttype" weather_line_with_focus_chart|dict_key_value:"chartdata" weather_line_with_focus_chart|dict_key_value:"linewithfocuschartcontainer" True "%d %b %Y %H" %}#}
+    {% load_chart charttype chartdata container extra %}
+    <h1>Temp vs Speed</h1>
+    {% include_container container 800 1200 %}
+{% endblock %}
